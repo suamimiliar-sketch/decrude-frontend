@@ -1,11 +1,11 @@
 'use client';
 
-import { useState } from 'react';
+import { Suspense, useState } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { themes } from '@/lib/themes';
 import toast, { Toaster } from 'react-hot-toast';
 
-export default function ThemePage() {
+function ThemeContent() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const orderId = searchParams.get('orderId');
@@ -70,5 +70,24 @@ export default function ThemePage() {
         </div>
       </div>
     </main>
+  );
+}
+
+export default function ThemePage() {
+  return (
+    <Suspense
+      fallback={
+        <main className="min-h-screen flex items-center justify-center bg-gradient-to-b from-red-50 to-green-50">
+          <div className="text-center">
+            <div className="text-6xl mb-4 animate-bounce">🎄</div>
+            <h2 className="text-2xl font-bold mb-2">
+              Membuka halaman tema...
+            </h2>
+          </div>
+        </main>
+      }
+    >
+      <ThemeContent />
+    </Suspense>
   );
 }
