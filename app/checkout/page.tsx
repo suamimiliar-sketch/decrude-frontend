@@ -1,15 +1,16 @@
 'use client';
 
-import { useState } from 'react';
+import { Suspense, useState } from 'react';
 import { useSearchParams } from 'next/navigation';
 import axios from 'axios';
 import toast, { Toaster } from 'react-hot-toast';
 import Script from 'next/script';
 
-export default function CheckoutPage() {
+function CheckoutContent() {
   const searchParams = useSearchParams();
   const orderId = searchParams.get('orderId');
   const themeId = searchParams.get('themeId');
+
   const [loading, setLoading] = useState(false);
   const [formData, setFormData] = useState({
     name: '',
@@ -48,7 +49,7 @@ export default function CheckoutPage() {
       window.snap.pay(snapToken, {
         onSuccess: () => {
           toast.success('Pembayaran berhasil!');
-          
+
           // Trigger generation
           axios.post(
             `${process.env.NEXT_PUBLIC_BACKEND_URL}/generation/generate`,
@@ -178,5 +179,19 @@ export default function CheckoutPage() {
         </div>
       </main>
     </>
+  );
+}
+
+export default function CheckoutPage() {
+  return (
+    <Suspense
+      fallback={
+        <main className="min-h-screen flex items-center justify-center">
+          Loading checkout...
+        </main>
+      }
+    >
+      <CheckoutContent />
+    </Suspense>
   );
 }
