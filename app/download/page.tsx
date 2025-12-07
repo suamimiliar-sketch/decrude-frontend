@@ -1,16 +1,18 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { Suspense, useState, useEffect } from 'react';
 import { useSearchParams } from 'next/navigation';
 import axios from 'axios';
 
-export default function DownloadPage() {
+function DownloadContent() {
   const searchParams = useSearchParams();
   const orderId = searchParams.get('orderId');
-  const [status, setStatus] = useState('processing');
+  const [status, setStatus] = useState<'processing' | 'completed'>('processing');
   const [generatedPhotos, setGeneratedPhotos] = useState<any[]>([]);
 
   useEffect(() => {
+    if (!orderId) return;
+
     const interval = setInterval(async () => {
       try {
         const response = await axios.get(
@@ -97,5 +99,24 @@ export default function DownloadPage() {
         ))}
       </div>
     </main>
+  );
+}
+
+export default function DownloadPage() {
+  return (
+    <Suspense
+      fallback={
+        <main className="min-h-screen bg-gradient-to-b from-red-50 to-green-50 flex items-center justify-center">
+          <div className="text-center">
+            <div className="text-6xl mb-4 animate-bounce">🎄</div>
+            <h2 className="text-2xl font-bold mb-2">
+              Membuka halaman download...
+            </h2>
+          </div>
+        </main>
+      }
+    >
+      <DownloadContent />
+    </Suspense>
   );
 }
