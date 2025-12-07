@@ -10,19 +10,29 @@ function CheckoutContent() {
   const searchParams = useSearchParams();
   const orderId = searchParams.get('orderId');
   const themeId = searchParams.get('themeId');
+  const pkg = searchParams.get('pkg') || '1'; // Get package from URL
 
+  // Map URL pkg number to internal package tier name
+  const pkgMap = {
+    '1': 'basic',
+    '2': 'premium',
+    '3': 'family'
+  };
+  
   const [loading, setLoading] = useState(false);
+  // Default to the package selected in URL
   const [formData, setFormData] = useState({
     name: '',
     email: '',
     phone: '',
-    packageTier: 'basic',
+    // @ts-ignore
+    packageTier: pkgMap[pkg] || 'basic',
   });
 
   const prices = {
-    basic: 49000,
-    premium: 79000,
-    family: 99000,
+    basic: 10000,
+    premium: 15000,
+    family: 20000,
   };
 
   const handlePayment = async () => {
@@ -50,7 +60,7 @@ function CheckoutContent() {
         onSuccess: () => {
           toast.success('Pembayaran berhasil!');
 
-          // Trigger generation
+          // Trigger generation immediately after payment
           axios.post(
             `${process.env.NEXT_PUBLIC_BACKEND_URL}/generation/generate`,
             { orderId: newOrderId, themeId },
@@ -75,7 +85,7 @@ function CheckoutContent() {
   return (
     <>
       <Script
-        src="https://app.sandbox.midtrans.com/snap/snap.js"
+        src="[https://app.sandbox.midtrans.com/snap/snap.js](https://app.sandbox.midtrans.com/snap/snap.js)"
         data-client-key={process.env.NEXT_PUBLIC_MIDTRANS_CLIENT_KEY}
       />
       <main className="min-h-screen bg-gradient-to-b from-red-50 to-green-50 py-12">
@@ -140,9 +150,9 @@ function CheckoutContent() {
                     }
                     className="w-full border rounded-lg px-4 py-2"
                   >
-                    <option value="basic">Basic - IDR 49K</option>
-                    <option value="premium">Premium - IDR 79K</option>
-                    <option value="family">Family - IDR 99K</option>
+                    <option value="basic">Paket Coba - Rp 10.000</option>
+                    <option value="premium">Paket Seru - Rp 15.000</option>
+                    <option value="family">Paket Puas - Rp 20.000</option>
                   </select>
                 </div>
               </div>
@@ -154,7 +164,8 @@ function CheckoutContent() {
                 <div className="flex justify-between">
                   <span>Paket:</span>
                   <span className="font-semibold capitalize">
-                    {formData.packageTier}
+                    {formData.packageTier === 'basic' ? 'Paket Coba' : 
+                     formData.packageTier === 'premium' ? 'Paket Seru' : 'Paket Puas'}
                   </span>
                 </div>
                 <div className="border-t pt-3 flex justify-between text-lg font-bold">

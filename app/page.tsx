@@ -44,8 +44,8 @@ export default function Home() {
               </div>
               <ul className="space-y-3 mb-8 text-gray-600 text-sm">
                 <li className="flex gap-2">✅ <b>1 Foto</b> Hasil Jadi</li>
-                <li className="flex gap-2">✅ Pilih 1 Tema Bebas</li>
-                <li className="flex gap-2">✅ Kualitas HD</li>
+                <li className="flex gap-2">✅ Resolusi HD</li>
+                <li className="flex gap-2">✅ Antrian Standar</li>
               </ul>
               <Link href="/upload?pkg=1" className="block w-full py-3 bg-gray-100 text-gray-900 font-bold text-center rounded-lg hover:bg-gray-200">
                 Pilih Ini
@@ -62,9 +62,9 @@ export default function Home() {
                 <span className="text-4xl font-bold text-gray-900">Rp 15.000</span>
               </div>
               <ul className="space-y-3 mb-8 text-gray-700 text-sm">
-                <li className="flex gap-2">✅ <b>2 Foto</b> Hasil Jadi</li>
-                <li className="flex gap-2">✅ Pilih 2 Tema Bebas</li>
-                <li className="flex gap-2">✅ Prioritas Antrian</li>
+                <li className="flex gap-2">✅ <b>1 Foto</b> Hasil Jadi</li>
+                <li className="flex gap-2">✅ <b>Resolusi Full HD</b></li>
+                <li className="flex gap-2">⚡ <b>Prioritas Antrian (Cepat)</b></li>
               </ul>
               <Link href="/upload?pkg=2" className="block w-full py-3 bg-red-600 text-white font-bold text-center rounded-lg hover:bg-red-700">
                 Pilih Ini
@@ -78,9 +78,9 @@ export default function Home() {
                 <span className="text-4xl font-bold text-gray-900">Rp 20.000</span>
               </div>
               <ul className="space-y-3 mb-8 text-gray-600 text-sm">
-                <li className="flex gap-2">✅ <b>3 Foto</b> Hasil Jadi</li>
-                <li className="flex gap-2">✅ Pilih 3 Tema Bebas</li>
-                <li className="flex gap-2">✅ Revisi 1x</li>
+                <li className="flex gap-2">✅ <b>1 Foto</b> Hasil Jadi</li>
+                <li className="flex gap-2">✅ <b>Resolusi 4K (Cetak)</b></li>
+                <li className="flex gap-2">⚡ Prioritas Utama VIP</li>
               </ul>
               <Link href="/upload?pkg=3" className="block w-full py-3 bg-gray-100 text-gray-900 font-bold text-center rounded-lg hover:bg-gray-200">
                 Pilih Ini
